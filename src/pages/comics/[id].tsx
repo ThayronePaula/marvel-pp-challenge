@@ -62,7 +62,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     `/characters/${id}/comics?ts=1&apikey=862acd0466e815a90d5cec24cb5fa4bf&hash=30dc7ee6f8fe336d503cee23dfe400a4&limit=100&offset=0&orderBy=-modified`
   );
 
-  console.log(response.data);
 
   const data = response.data.data.results.filter(
     ({ description, thumbnail }) => {

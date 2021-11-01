@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 
-import { makeStyles } from "@mui/styles";
 import { MarvelComics } from "../interfaces";
 
 import { Box, Typography, Chip, Tooltip, Button } from "@mui/material";

@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 
-import { makeStyles } from "@mui/styles";
 import { MarvelSerie } from "../interfaces";
 
 import { Box, Typography, Chip, Tooltip } from "@mui/material";
@@ -75,7 +74,6 @@ export const TvShows = ({ tvShow }: TvShowsProps) => {
               {tvShow.description.substring(0, 200)}...
             </Box>
           </Tooltip>
-          {/* {tvShow.description} */}
         </Typography>
 
         <Typography
