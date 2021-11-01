@@ -2,12 +2,15 @@ import React from "react";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 
 import api from "../../services/api";
-import { MarvelSeriesResponse, MarvelSerie } from "../../interfaces";
 
-import { TvShows } from "../../components/TvShows";
+import { MarvelComicsResponse, MarvelComics } from "../../interfaces";
+
+import { Comics } from "../../components/Comics";
 import { Typography } from "@mui/material";
 
-const Serie = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
+const ComicsPage = ({
+  data,
+}: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <Typography
@@ -18,18 +21,18 @@ const Serie = ({ data }: InferGetStaticPropsType<typeof getStaticProps>) => {
           fontSize: [48, 64],
         }}
       >
-        Series
+        Comics
       </Typography>
-      {data.map((serie: MarvelSerie) => (
-        <TvShows key={serie.id} tvShow={serie} />
+      {data.map((comics: MarvelComics) => (
+        <Comics key={comics.id} comics={comics} />
       ))}
     </>
   );
 };
-export default Serie;
+export default ComicsPage;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await api.get<MarvelSeriesResponse>(
+  const response = await api.get<MarvelComicsResponse>(
     "/characters?ts=1&apikey=862acd0466e815a90d5cec24cb5fa4bf&hash=30dc7ee6f8fe336d503cee23dfe400a4&limit=100&offset=0&orderBy=-modified"
   );
 
@@ -55,9 +58,11 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const { id } = context.params;
-  const response = await api.get<MarvelSeriesResponse>(
-    `/characters/${id}/series?ts=1&apikey=862acd0466e815a90d5cec24cb5fa4bf&hash=30dc7ee6f8fe336d503cee23dfe400a4&limit=100&offset=0&orderBy=-modified`
+  const response = await api.get<MarvelComicsResponse>(
+    `/characters/${id}/comics?ts=1&apikey=862acd0466e815a90d5cec24cb5fa4bf&hash=30dc7ee6f8fe336d503cee23dfe400a4&limit=100&offset=0&orderBy=-modified`
   );
+
+  console.log(response.data);
 
   const data = response.data.data.results.filter(
     ({ description, thumbnail }) => {
@@ -67,13 +72,13 @@ export const getStaticProps: GetStaticProps = async (context) => {
     }
   );
 
-  data.splice(10);
-
   if (!data.length) {
     return {
       notFound: true, // if don't have data return 404
     };
   }
+
+  data.splice(10);
 
   return {
     props: { data },

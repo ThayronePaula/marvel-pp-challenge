@@ -2,12 +2,12 @@ import React from "react";
 import Image from "next/image";
 
 import { makeStyles } from "@mui/styles";
-import { MarvelSerie } from "../interfaces";
+import { MarvelComics } from "../interfaces";
 
-import { Box, Typography, Chip, Tooltip } from "@mui/material";
+import { Box, Typography, Chip, Tooltip, Button } from "@mui/material";
 
-type TvShowsProps = {
-  tvShow: MarvelSerie;
+type ComicsProps = {
+  comics?: MarvelComics;
 };
 
 const colors = ["#e63946", "#e9c46a", "#2a9d8f"];
@@ -17,9 +17,8 @@ for (let i = 0; i < 3; i++) {
   colors.push(`#${randomColor}`);
 }
 
-export const TvShows = ({ tvShow }: TvShowsProps) => {
-  const imageUrl = `${tvShow.thumbnail.path}.${tvShow.thumbnail.extension}`;
-
+export const Comics = ({ comics }: ComicsProps) => {
+  const imageUrl = `${comics.thumbnail.path}.${comics.thumbnail.extension}`;
   return (
     <Box
       sx={{
@@ -38,7 +37,7 @@ export const TvShows = ({ tvShow }: TvShowsProps) => {
           height={360}
           quality={100}
           sizes="50vw"
-          alt={tvShow.title + " image"}
+          alt={comics.title + " image"}
           src={imageUrl}
           layout="intrinsic"
         />
@@ -60,7 +59,7 @@ export const TvShows = ({ tvShow }: TvShowsProps) => {
           }}
           variant="h3"
         >
-          {tvShow.title}
+          {comics.title}
         </Typography>
         <Typography
           sx={{
@@ -69,13 +68,12 @@ export const TvShows = ({ tvShow }: TvShowsProps) => {
           }}
           variant="body1"
         >
-          <Tooltip title={tvShow.description} sx={{ width: "100%" }}>
+          <Tooltip title={comics.description} sx={{ width: "100%" }}>
             <Box sx={{ m: 1, width: "100%", height: ["100%"] }}>
               {" "}
-              {tvShow.description.substring(0, 200)}...
+              {comics.description.substring(0, 200)}...
             </Box>
           </Tooltip>
-          {/* {tvShow.description} */}
         </Typography>
 
         <Typography
@@ -94,7 +92,7 @@ export const TvShows = ({ tvShow }: TvShowsProps) => {
           component="footer"
           sx={{ width: "100%", display: "flex", flexWrap: "wrap" }}
         >
-          {tvShow.characters.items.slice(0, 6).map(({ name }, index) => (
+          {comics.characters.items.slice(0, 6).map(({ name }, index) => (
             <Chip
               key={name}
               label={name}

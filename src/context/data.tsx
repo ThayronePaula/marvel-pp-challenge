@@ -1,16 +1,6 @@
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 import { MarvelCharacter } from "../interfaces";
-
-type AuthResponse = {
-  token: string;
-  user: {
-    id: string;
-    avatar_url: string;
-    name: string;
-    login: string;
-  };
-};
 
 type AuthContextData = {
   characters: MarvelCharacter[];
@@ -28,7 +18,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   const handleCharactersData = (data: MarvelCharacter[]) => {
     const dataFilter = data.filter(({ description, thumbnail }) => {
-      if (description) {
+      if (description.trim()) {
         return !thumbnail.path.includes("image_not_available");
       }
     });

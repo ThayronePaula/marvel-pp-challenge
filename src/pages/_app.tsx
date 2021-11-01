@@ -7,6 +7,7 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import theme from "../theme/theme";
 import createEmotionCache from "../utils/createEmotionCache";
 import { AuthProvider } from "../context/data";
+import { Box } from "@mui/material";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -26,7 +27,10 @@ export default function MyApp(props: MyAppProps) {
         </Head>
         <ThemeProvider theme={theme}>
           <CssBaseline />
-          <Component {...pageProps} />
+
+          <Box sx={{ background: "#0E0333", minHeight: "100vh" }}>
+            <Component {...pageProps} />
+          </Box>
         </ThemeProvider>
       </CacheProvider>
     </AuthProvider>
