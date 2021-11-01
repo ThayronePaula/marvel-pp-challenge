@@ -22,7 +22,7 @@ export default function MyApp(props: MyAppProps) {
     <AuthProvider>
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>My page</title>
+          <title>Marvel Challenge</title>
           <meta name="viewport" content="initial-scale=1, width=device-width" />
         </Head>
         <ThemeProvider theme={theme}>
